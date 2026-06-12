@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -212,7 +212,6 @@
 </head>
 <body class="overflow-hidden">
 
-<!-- TELA DA CARTA (Aparece primeiro) -->
 <div id="envelope-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); transition: opacity 1s ease;">
     <div id="instruction-text" class="text-[#d90429] font-dancing text-4xl mb-12 animate-pulse drop-shadow-md">
         Abra a carta...
@@ -235,7 +234,6 @@
     </div>
 </div>
 
-<!-- Shader de Fundo -->
 <div class="fixed inset-0 w-full h-full -z-10" style="display:block;">
 <canvas id="shader-canvas-ANIMATION_1" style="display:block;width:100%;height:100%" width="1280" height="3582"></canvas>
 <script>
@@ -268,7 +266,6 @@
 </script>
 </div>
 
-<!-- CONTEÚDO DO SITE PRINCIPAL -->
 <div class="relative z-10">
     <header class="min-h-screen flex flex-col items-center justify-center text-center px-4">
         <div class="animate-float">
@@ -287,7 +284,6 @@
 
     <main class="max-w-4xl mx-auto px-6 pb-24">
         
-        <!-- PLAYER MP3 DE VINIL -->
         <section class="glass rounded-3xl p-8 mb-16 text-center reveal active">
             <h2 class="font-dancing text-5xl text-[#d90429] mb-6">Nossa Música ❤️</h2>
             <p class="text-gray-700 text-lg mb-8">Dê o play para ler a nossa história com a trilha sonora perfeita.</p>
@@ -311,14 +307,12 @@
                         </button>
                     </div>
                 </div>
-                <!-- ÁUDIO CARREGADO DA SUA PASTA -->
                 <audio id="nossa-musica" loop>
-                    <source src="musicas/nossa-musica.mp3" type="audio/mpeg">
+                    <source src="musicas/nossa-musica.mp3.mpeg" type="audio/mpeg">
                 </audio>
             </div>
         </section>
 
-        <!-- História (Texto Completo) -->
         <article class="rounded-3xl p-8 md:p-16 mb-16 reveal active" style="background-color: rgb(253, 251, 247); background-image: radial-gradient(rgb(229, 231, 235) 0.5px, transparent 0.5px); background-size: 20px 20px; box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px -5px, rgba(0, 0, 0, 0.05) 0px 20px 25px -5px, rgba(217, 4, 41, 0.02) 0px 0px 100px inset;">
             <div class="flex justify-center mb-8">
                 <div class="w-24 h-1 bg-[#d90429] opacity-20 rounded-full"></div>
@@ -362,84 +356,68 @@
             </div>
         </article>
 
-        <!-- Galeria de 15 Fotos -->
         <section class="reveal active">
             <h2 class="font-dancing text-5xl text-[#d90429] text-center mb-16">Nossos Momentos</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                 
-                <!-- Foto 1 -->
                 <div class="polaroid -rotate-3">
-                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto1.jpg">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto1.jpg.jpg">
                     <p class="font-dancing text-2xl text-center text-gray-800">Nossa primeira foto</p>
                 </div>
-                <!-- Foto 2 -->
                 <div class="polaroid rotate-2">
-                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto2.jpg">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto2.jpg.jpg">
                     <p class="font-dancing text-2xl text-center text-gray-800">Um momento especial</p>
                 </div>
-                <!-- Foto 3 -->
                 <div class="polaroid -rotate-1">
-                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto3.jpg">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto3.jpg.jpg">
                     <p class="font-dancing text-2xl text-center text-gray-800">Mais uma lembrança linda</p>
                 </div>
-                <!-- Foto 4 -->
                 <div class="polaroid rotate-3">
-                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto4.jpg">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto4.jpg.jpg">
                     <p class="font-dancing text-2xl text-center text-gray-800">Meu sorriso favorito</p>
                 </div>
-                <!-- Foto 5 -->
                 <div class="polaroid -rotate-2">
-                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto5.jpg">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto5.jpg.jpg">
                     <p class="font-dancing text-2xl text-center text-gray-800">Dias inesquecíveis</p>
                 </div>
-                <!-- Foto 6 -->
                 <div class="polaroid rotate-1">
-                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto6.jpg">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto6.jpg.jpg">
                     <p class="font-dancing text-2xl text-center text-gray-800">Sempre juntos</p>
                 </div>
-                <!-- Foto 7 -->
                 <div class="polaroid -rotate-3">
-                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto7.jpg">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto7.jpg.jpg">
                     <p class="font-dancing text-2xl text-center text-gray-800">Amo você</p>
                 </div>
-                <!-- Foto 8 -->
                 <div class="polaroid rotate-2">
-                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto8.jpg">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto8.jpg.jpg">
                     <p class="font-dancing text-2xl text-center text-gray-800">Minha paz</p>
                 </div>
-                <!-- Foto 9 -->
                 <div class="polaroid -rotate-1">
-                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto9.jpg">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto9.jpg.jpg">
                     <p class="font-dancing text-2xl text-center text-gray-800">Nosso mundo</p>
                 </div>
-                <!-- Foto 10 -->
                 <div class="polaroid rotate-3">
-                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto10.jpg">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto10.jpg.jpg">
                     <p class="font-dancing text-2xl text-center text-gray-800">Melhor companhia</p>
                 </div>
-                <!-- Foto 11 -->
                 <div class="polaroid -rotate-2">
-                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto11.jpg">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto11.jpg.jpg">
                     <p class="font-dancing text-2xl text-center text-gray-800">Cada detalhe</p>
                 </div>
-                <!-- Foto 12 -->
                 <div class="polaroid rotate-1">
-                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto12.jpg">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto12.jpg.jpg">
                     <p class="font-dancing text-2xl text-center text-gray-800">Te amo tanto</p>
                 </div>
-                <!-- Foto 13 -->
                 <div class="polaroid -rotate-3">
-                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto13.jpg">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto13.jpg.jpg">
                     <p class="font-dancing text-2xl text-center text-gray-800">Meu porto seguro</p>
                 </div>
-                <!-- Foto 14 -->
                 <div class="polaroid rotate-2">
-                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto14.jpg">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto14.jpg.jpg">
                     <p class="font-dancing text-2xl text-center text-gray-800">Para sempre</p>
                 </div>
-                <!-- Foto 15 -->
                 <div class="polaroid -rotate-1">
-                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto15.jpg">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto15.jpg.jpg">
                     <p class="font-dancing text-2xl text-center text-gray-800">Minha noiva maravilhosa</p>
                 </div>
 
@@ -453,7 +431,6 @@
 </div>
 
 <script>
-    // --- LÓGICA DA CARTA INICIAL ---
     const envelopeScreen = document.getElementById('envelope-screen');
     const envelopeWrapper = document.getElementById('envelope-wrapper');
     const instructionText = document.getElementById('instruction-text');
@@ -475,7 +452,7 @@
             iconPause.classList.remove('hidden');
             vinylDisc.classList.add('animate-spin-slow');
             isPlaying = true;
-        }).catch(e => console.log("O navegador bloqueou o autoplay. Basta clicar no botão de play manualmente."));
+        }).catch(e => console.log("O navegador bloqueou a reprodução automática. Pode carregar no play manualmente."));
 
         setTimeout(() => {
             envelopeScreen.style.opacity = '0';
@@ -489,7 +466,7 @@
         }, 3800);
     });
 
-    // --- CONTROLE DO BOTÃO PLAY/PAUSE ---
+    // --- CONTROLO DO BOTÃO PLAY/PAUSE ---
     playBtn.addEventListener('click', () => {
         if (isPlaying) {
             audio.pause();
@@ -519,7 +496,7 @@
     }
     window.addEventListener("scroll", reveal);
 
-    // --- CORAÇÕES AO CLICAR NA TELA ---
+    // --- CORAÇÕES AO CLICAR NO ECRÃ ---
     document.addEventListener('click', (e) => {
         if(e.target.closest('#envelope-wrapper') || e.target.closest('#play-btn')) return;
 
