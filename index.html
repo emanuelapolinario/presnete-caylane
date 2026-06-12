@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Feliz Dia dos Namorados, Caylane</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+        :root {
+            --primary: #d90429;
+            --secondary: #ff4d6d;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff5f5;
+        }
+        .font-dancing {
+            font-family: 'Dancing Script', cursive;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .polaroid {
+            background: white;
+            padding: 12px 12px 35px 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0deg) translateY(-10px);
+            box-shadow: 0 20px 40px rgba(217, 4, 41, 0.2);
+            z-index: 20;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        .heart-pulse {
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } 
+        .animate-spin-slow { animation: spin-slow 8s linear infinite; }
+
+        /* Design da Carta Realista 3D */
+        .envelope-container {
+            perspective: 1200px;
+        }
+        .envelope {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            background: #d90429;
+            border-radius: 8px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3), inset 0 0 20px rgba(0,0,0,0.1);
+            transition: transform 0.4s ease;
+            cursor: pointer;
+        }
+        .envelope:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4), inset 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .envelope-back {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, #bd0323, #d90429);
+            border-radius: 8px;
+            z-index: 1;
+        }
+        
+        .letter {
+            position: absolute;
+            bottom: 5px;
+            left: 5%;
+            width: 90%;
+            height: 95%;
+            background: #fffdf5;
+            border-radius: 5px;
+            z-index: 2;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s;
+            display: flex;
+            flex-col;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border: 1px solid #f1e9d2;
+            padding: 20px;
+        }
+        
+        .envelope-front {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            pointer-events: none;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .envelope-front::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 0; height: 0;
+            border-style: solid;
+            border-width: 110px 0 110px 160px;
+            border-color: transparent transparent transparent #ef233c;
+            filter: drop-shadow(3px 0 5px rgba(0,0,0,0.2));
+        }
+        .envelope-front::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 0; height: 0;
+            border-style: solid;
+            border-width: 110px 160px 110px 0;
+            border-color: transparent #ef233c transparent transparent;
+            filter: drop-shadow(-3px 0 5px rgba(0,0,0,0.2));
+        }
+        .envelope-bottom {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 0;
+            border-style: solid;
+            border-width: 0 160px 130px 160px;
+            border-color: transparent transparent #d90429 transparent;
+            z-index: 4;
+            pointer-events: none;
+            filter: drop-shadow(0 -3px 5px rgba(0,0,0,0.2));
+        }
+        
+        .envelope-top {
+            position: absolute;
+            top: 0; left: 0;
+            width: 0; height: 0;
+            border-style: solid;
+            border-width: 120px 160px 0 160px;
+            border-color: #ff4d6d transparent transparent transparent;
+            transform-origin: top;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.3s;
+            z-index: 5;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+        }
+        
+        .wax-seal {
+            position: absolute;
+            top: 95px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 45px;
+            height: 45px;
+            background: radial-gradient(circle at 30% 30%, #ffb3c1, #e63946);
+            border-radius: 50%;
+            z-index: 6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4), inset 0 -2px 5px rgba(0,0,0,0.3);
+            transition: opacity 0.3s ease, transform 0.5s ease;
+            pointer-events: none;
+        }
+        .wax-seal::after {
+            content: '❤';
+            color: white;
+            font-size: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+        }
+
+        .env-open .envelope-top {
+            transform: rotateX(180deg);
+            z-index: 1;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.4s;
+        }
+        .env-open .wax-seal {
+            opacity: 0;
+            transform: translateX(-50%) scale(0.5);
+        }
+        .env-open .letter {
+            transform: translateY(-150px);
+            z-index: 10;
+        }
+
+        @keyframes subtleBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .animate-subtle-bounce {
+            animation: subtleBounce 2.5s infinite ease-in-out;
+        }
+</style>
+</head>
+<body class="overflow-hidden">
+
+<!-- TELA DA CARTA (Aparece primeiro) -->
+<div id="envelope-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); transition: opacity 1s ease;">
+    <div id="instruction-text" class="text-[#d90429] font-dancing text-4xl mb-12 animate-pulse drop-shadow-md">
+        Abra a carta...
+    </div>
+    <div class="envelope-container animate-subtle-bounce">
+        <div id="envelope-wrapper" class="envelope">
+            <div class="envelope-back"></div>
+            <div class="letter">
+                <div class="border-2 border-dashed border-[#ffb3c1] p-4 w-full h-full flex flex-col justify-center rounded">
+                    <div class="text-[#d90429] font-dancing text-2xl mb-1">Para o amor</div>
+                    <div class="text-[#d90429] font-dancing text-2xl mb-3">da minha vida:</div>
+                    <div class="text-gray-800 font-dancing text-4xl font-bold">Caylane ❤️</div>
+                </div>
+            </div>
+            <div class="envelope-front"></div>
+            <div class="envelope-bottom"></div>
+            <div class="envelope-top"></div>
+            <div class="wax-seal"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Shader de Fundo -->
+<div class="fixed inset-0 w-full h-full -z-10" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_1" style="display:block;width:100%;height:100%" width="1280" height="3582"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_1');
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(syncSize).observe(canvas);
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position; varying vec2 v_texCoord; void main() { v_texCoord = a_position * 0.5 + 0.5; gl_Position = vec4(a_position, 0.0, 1.0); }`;
+  const fs = `precision highp float; varying vec2 v_texCoord; uniform float u_time; uniform vec2 u_resolution; float heart(vec2 uv) { uv.y -= 0.25; float a = atan(uv.x, uv.y) / 3.14159; float r = length(uv); float h = abs(a); float d = (13.0 * h - 22.0 * h * h + 10.0 * h * h * h) / (6.0 - 5.0 * h); return smoothstep(d, d - 0.05, r); } void main() { vec2 uv = (v_texCoord * 2.0 - 1.0); uv.x *= u_resolution.x / u_resolution.y; vec3 color = vec3(1.0, 0.9, 0.95); color = mix(color, vec3(1.0, 0.8, 0.85), v_texCoord.y); for(float i = 0.0; i < 15.0; i++) { float t = u_time * (0.2 + fract(i * 0.123) * 0.3); vec2 p = vec2(sin(i * 456.789 + t) * 0.8, mod(i * 123.456 + t, 2.5) - 1.25); float size = 0.1 + fract(i * 789.123) * 0.15; float h = heart((uv - p) / size); vec3 heartColor = mix(vec3(1.0, 0.2, 0.4), vec3(0.85, 0.0, 0.16), fract(i * 0.5)); color = mix(color, heartColor, h * 0.4); } gl_FragColor = vec4(color, 1.0); }`;
+  function cs(type, src) { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; }
+  const prog = gl.createProgram(); gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs)); gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(prog); gl.useProgram(prog);
+  const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position'); gl.enableVertexAttribArray(pos); gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time'); const uRes = gl.getUniformLocation(prog, 'u_resolution'); const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => { const rect = canvas.getBoundingClientRect(); if (rect.width && rect.height) { const nx = (event.clientX - rect.left) / rect.width; const ny = 1.0 - (event.clientY - rect.top) / rect.height; mouse.x = nx * canvas.width; mouse.y = ny * canvas.height; } });
+  function render(t) { if (typeof ResizeObserver === 'undefined') syncSize(); gl.viewport(0, 0, canvas.width, canvas.height); if (uTime) gl.uniform1f(uTime, t * 0.001); if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height); if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); requestAnimationFrame(render); } render(0);
+})();
+</script>
+</div>
+
+<!-- CONTEÚDO DO SITE PRINCIPAL -->
+<div class="relative z-10">
+    <header class="min-h-screen flex flex-col items-center justify-center text-center px-4">
+        <div class="animate-float">
+            <h1 class="font-dancing text-7xl md:text-9xl text-[#d90429] mb-4 drop-shadow-lg">
+                Feliz Dia dos Namorados!
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-800 font-light max-w-2xl mt-4 font-semibold">
+                Um pequeno presente para a pessoa que transformou meu mundo no lugar mais lindo de se viver.
+            </p>
+            <div class="mt-8 text-5xl text-[#d90429] heart-pulse">❤️</div>
+        </div>
+        <div class="absolute bottom-10 animate-bounce text-gray-500">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 14l-7 7m0 0l-7-7m7 7V3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 pb-24">
+        
+        <!-- PLAYER MP3 DE VINIL -->
+        <section class="glass rounded-3xl p-8 mb-16 text-center reveal active">
+            <h2 class="font-dancing text-5xl text-[#d90429] mb-6">Nossa Música ❤️</h2>
+            <p class="text-gray-700 text-lg mb-8">Dê o play para ler a nossa história com a trilha sonora perfeita.</p>
+            
+            <div class="flex flex-col items-center gap-8">
+                <div class="relative w-48 h-48 mx-auto">
+                    <div id="vinyl-disc" class="absolute inset-0 bg-gray-900 rounded-full border-8 border-gray-800 shadow-2xl overflow-hidden" style="transition: transform 0.5s ease;">
+                        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle,transparent_40%,black_100%)]"></div>
+                        <div class="absolute inset-[35%] bg-[#d90429] rounded-full flex items-center justify-center border-4 border-gray-800">
+                            <div class="w-4 h-4 bg-gray-800 rounded-full"></div>
+                        </div>
+                    </div>
+                    <div class="absolute -right-4 top-0 w-2 h-24 bg-gray-400 origin-top rotate-12 rounded-full shadow-md z-10"></div>
+                </div>
+                
+                <div class="w-full max-w-md space-y-4">
+                    <div class="flex items-center justify-center gap-6">
+                        <button id="play-btn" class="w-16 h-16 flex items-center justify-center rounded-full bg-[#d90429] text-white shadow-lg hover:scale-110 transition-transform cursor-pointer">
+                            <svg id="icon-play" class="w-8 h-8 ml-2" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+                            <svg id="icon-pause" class="w-8 h-8 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>
+                        </button>
+                    </div>
+                </div>
+                <!-- ÁUDIO CARREGADO DA SUA PASTA -->
+                <audio id="nossa-musica" loop>
+                    <source src="musicas/nossa-musica.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+        </section>
+
+        <!-- História (Texto Completo) -->
+        <article class="rounded-3xl p-8 md:p-16 mb-16 reveal active" style="background-color: rgb(253, 251, 247); background-image: radial-gradient(rgb(229, 231, 235) 0.5px, transparent 0.5px); background-size: 20px 20px; box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px -5px, rgba(0, 0, 0, 0.05) 0px 20px 25px -5px, rgba(217, 4, 41, 0.02) 0px 0px 100px inset;">
+            <div class="flex justify-center mb-8">
+                <div class="w-24 h-1 bg-[#d90429] opacity-20 rounded-full"></div>
+            </div>
+            
+            <h2 class="font-dancing text-5xl md:text-6xl text-[#d90429] text-center mb-12">Nossa História</h2>
+            
+            <div class="space-y-6 text-lg text-gray-800 leading-relaxed text-justify" style="font-family: 'Poppins', sans-serif;">
+                <p>Se alguém me perguntasse qual foi a maior mudança da minha vida nos últimos anos, eu não precisaria pensar muito.</p>
+                <p class="text-4xl font-dancing text-center text-[#d90429] font-bold py-6">Foi você.</p>
+                <p>Porque, desde que você chegou, tudo ganhou mais sentido. Os dias ficaram mais leves, os sonhos mais bonitos e até os momentos difíceis se tornaram mais suportáveis.</p>
+                <p>Antes de você, eu achava que estava apenas vivendo. Fazendo o que precisava ser feito, seguindo os dias sem realmente prestar atenção no quanto a vida podia ser melhor. Mas então você apareceu, e aos poucos transformou tudo ao seu redor.</p>
+                <p class="italic border-l-4 border-[#d90429] pl-6 py-4 bg-red-50/50 rounded-r-lg font-medium">
+                    Por isso, às vezes, eu tenho medo de te perder. Não porque eu duvide de você, mas porque, depois que você chegou, eu nunca mais fui a mesma pessoa.
+                </p>
+                <p>A verdade é que eu já me senti muito sozinho. Já enfrentei dias em que achei que ninguém ficaria. Dias em que me senti inseguro, perdido e até insuficiente. Mas então você apareceu e, sem perceber, se tornou o meu porto seguro. A pessoa que acalma meus medos, que me dá força quando eu não tenho e que faz meus dias terem mais sentido.</p>
+                <p>Eu te amo profundamente. E talvez eu não diga isso o suficiente.</p>
+                <p>Sinceramente, se não fosse por você, eu não sei onde estaria hoje. Você esteve ao meu lado de formas que nem consigo explicar. Em cada desabafo, em cada momento difícil que enfrentamos — e não foram poucos kkkk —, em cada madrugada em que a minha mente tentou me derrotar, você estava lá.</p>
+                <p class="text-4xl font-dancing text-center text-[#d90429] font-bold py-6">Você simplesmente ficou.</p>
+                <p>E isso significa mais para mim do que qualquer palavra conseguiria expressar.</p>
+                <p>Eu amo as nossas noites simples de sábado. Amo como elas sempre acabam se tornando o melhor momento da minha semana. Amo as conversas, as risadas, os silêncios confortáveis e até os pequenos momentos que talvez pareçam comuns para outras pessoas, mas que para mim são especiais porque são ao seu lado.</p>
+                <p>Você conheceu as minhas melhores versões, mas também viu meus medos, minhas falhas e os momentos em que eu desmoronei. E mesmo assim escolheu ficar.</p>
+                <p>Num mundo onde tantas pessoas passam e vão embora, você se tornou a minha constante. A prova de que eu não precisava enfrentar tudo sozinho.</p>
+                <p>Então, neste Dia dos Namorados, quero dizer algo que talvez eu não tenha dito o suficiente:</p>
+                <p class="text-4xl font-dancing text-center text-[#d90429] font-bold py-4">Obrigado.</p>
+                
+                <div class="text-center py-6 space-y-4">
+                    <p class="text-xl">Obrigado por cada abraço, por cada palavra de apoio, por cada momento em que você segurou a minha mão quando eu pensei em desistir.</p>
+                    <p class="text-xl font-semibold">Obrigado por ser essa noiva maravilhosa.</p>
+                    <p class="text-xl font-semibold">Obrigado por ser a mulher da minha vida.</p>
+                    <p class="text-xl">Obrigado por me amar mesmo nos dias em que eu não conseguia enxergar o melhor de mim.</p>
+                    <p class="text-xl italic">E, acima de tudo, obrigado por existir.</p>
+                </div>
+                
+                <p class="text-2xl font-semibold text-[#d90429] text-center pt-4">Eu te amo hoje, mais do que ontem, e tenho certeza de que vou te amar menos do que amanhã.</p>
+                
+                <div class="text-center pt-12">
+                    <p class="text-gray-600 mb-0 italic text-xl">Feliz Dia dos Namorados, meu amor. ❤️<br>Com todo o meu amor,</p>
+                    <p class="font-dancing text-6xl text-[#d90429] mt-4 -rotate-2">Emanuel</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- Galeria de 15 Fotos -->
+        <section class="reveal active">
+            <h2 class="font-dancing text-5xl text-[#d90429] text-center mb-16">Nossos Momentos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                
+                <!-- Foto 1 -->
+                <div class="polaroid -rotate-3">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto1.jpg">
+                    <p class="font-dancing text-2xl text-center text-gray-800">Nossa primeira foto</p>
+                </div>
+                <!-- Foto 2 -->
+                <div class="polaroid rotate-2">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto2.jpg">
+                    <p class="font-dancing text-2xl text-center text-gray-800">Um momento especial</p>
+                </div>
+                <!-- Foto 3 -->
+                <div class="polaroid -rotate-1">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto3.jpg">
+                    <p class="font-dancing text-2xl text-center text-gray-800">Mais uma lembrança linda</p>
+                </div>
+                <!-- Foto 4 -->
+                <div class="polaroid rotate-3">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto4.jpg">
+                    <p class="font-dancing text-2xl text-center text-gray-800">Meu sorriso favorito</p>
+                </div>
+                <!-- Foto 5 -->
+                <div class="polaroid -rotate-2">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto5.jpg">
+                    <p class="font-dancing text-2xl text-center text-gray-800">Dias inesquecíveis</p>
+                </div>
+                <!-- Foto 6 -->
+                <div class="polaroid rotate-1">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto6.jpg">
+                    <p class="font-dancing text-2xl text-center text-gray-800">Sempre juntos</p>
+                </div>
+                <!-- Foto 7 -->
+                <div class="polaroid -rotate-3">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto7.jpg">
+                    <p class="font-dancing text-2xl text-center text-gray-800">Amo você</p>
+                </div>
+                <!-- Foto 8 -->
+                <div class="polaroid rotate-2">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto8.jpg">
+                    <p class="font-dancing text-2xl text-center text-gray-800">Minha paz</p>
+                </div>
+                <!-- Foto 9 -->
+                <div class="polaroid -rotate-1">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto9.jpg">
+                    <p class="font-dancing text-2xl text-center text-gray-800">Nosso mundo</p>
+                </div>
+                <!-- Foto 10 -->
+                <div class="polaroid rotate-3">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto10.jpg">
+                    <p class="font-dancing text-2xl text-center text-gray-800">Melhor companhia</p>
+                </div>
+                <!-- Foto 11 -->
+                <div class="polaroid -rotate-2">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto11.jpg">
+                    <p class="font-dancing text-2xl text-center text-gray-800">Cada detalhe</p>
+                </div>
+                <!-- Foto 12 -->
+                <div class="polaroid rotate-1">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto12.jpg">
+                    <p class="font-dancing text-2xl text-center text-gray-800">Te amo tanto</p>
+                </div>
+                <!-- Foto 13 -->
+                <div class="polaroid -rotate-3">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto13.jpg">
+                    <p class="font-dancing text-2xl text-center text-gray-800">Meu porto seguro</p>
+                </div>
+                <!-- Foto 14 -->
+                <div class="polaroid rotate-2">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto14.jpg">
+                    <p class="font-dancing text-2xl text-center text-gray-800">Para sempre</p>
+                </div>
+                <!-- Foto 15 -->
+                <div class="polaroid -rotate-1">
+                    <img alt="Momentos" class="w-full h-64 object-cover mb-4" src="fotos/foto15.jpg">
+                    <p class="font-dancing text-2xl text-center text-gray-800">Minha noiva maravilhosa</p>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-12 text-gray-600 font-semibold text-lg">
+        Feito com muito amor <span class="text-[#d90429] heart-pulse inline-block">❤️</span> para Caylane
+    </footer>
+</div>
+
+<script>
+    // --- LÓGICA DA CARTA INICIAL ---
+    const envelopeScreen = document.getElementById('envelope-screen');
+    const envelopeWrapper = document.getElementById('envelope-wrapper');
+    const instructionText = document.getElementById('instruction-text');
+    
+    const audio = document.getElementById('nossa-musica');
+    const playBtn = document.getElementById('play-btn');
+    const iconPlay = document.getElementById('icon-play');
+    const iconPause = document.getElementById('icon-pause');
+    const vinylDisc = document.getElementById('vinyl-disc');
+    let isPlaying = false;
+
+    // Abrir carta
+    envelopeWrapper.addEventListener('click', () => {
+        envelopeWrapper.classList.add('env-open');
+        instructionText.style.opacity = '0';
+        
+        audio.play().then(() => {
+            iconPlay.classList.add('hidden');
+            iconPause.classList.remove('hidden');
+            vinylDisc.classList.add('animate-spin-slow');
+            isPlaying = true;
+        }).catch(e => console.log("O navegador bloqueou o autoplay. Basta clicar no botão de play manualmente."));
+
+        setTimeout(() => {
+            envelopeScreen.style.opacity = '0';
+        }, 2800);
+        
+        setTimeout(() => {
+            envelopeScreen.style.display = 'none';
+            document.body.classList.remove('overflow-hidden');
+            document.body.classList.add('overflow-x-hidden');
+            reveal();
+        }, 3800);
+    });
+
+    // --- CONTROLE DO BOTÃO PLAY/PAUSE ---
+    playBtn.addEventListener('click', () => {
+        if (isPlaying) {
+            audio.pause();
+            iconPlay.classList.remove('hidden');
+            iconPause.classList.add('hidden');
+            vinylDisc.classList.remove('animate-spin-slow');
+        } else {
+            audio.play();
+            iconPlay.classList.add('hidden');
+            iconPause.classList.remove('hidden');
+            vinylDisc.classList.add('animate-spin-slow');
+        }
+        isPlaying = !isPlaying;
+    });
+
+    // --- EFEITO DE REVELAÇÃO NO SCROLL ---
+    function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            var elementVisible = 150;
+            if (elementTop < windowHeight - elementVisible) {
+                reveals[i].classList.add("active");
+            }
+        }
+    }
+    window.addEventListener("scroll", reveal);
+
+    // --- CORAÇÕES AO CLICAR NA TELA ---
+    document.addEventListener('click', (e) => {
+        if(e.target.closest('#envelope-wrapper') || e.target.closest('#play-btn')) return;
+
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤️';
+        heart.style.position = 'fixed';
+        heart.style.left = e.clientX + 'px';
+        heart.style.top = e.clientY + 'px';
+        heart.style.fontSize = '24px';
+        heart.style.pointerEvents = 'none';
+        heart.style.transition = 'all 1s ease-out';
+        heart.style.zIndex = '100';
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.style.transform = `translate(${(Math.random() - 0.5) * 100}px, -100px) scale(0)`;
+            heart.style.opacity = '0';
+        }, 10);
+
+        setTimeout(() => heart.remove(), 1000);
+    });
+</script>
+
+</body>
+</html>
